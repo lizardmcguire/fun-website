@@ -1,9 +1,318 @@
-<!DOCTYPE>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Fun website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 Purrfect Cat Paradise 🐱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .cat-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .cat {
+            font-size: 8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: bounce 2s infinite;
+            user-select: none;
+        }
+
+        .cat:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating-cats {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .cat-facts {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .cat-fact {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .game-section {
+            background: rgba(255, 255, 255, 0.9);
+            margin: 2rem;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-section h2 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .cat-counter {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: #333;
+        }
+
+        .reset-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .reset-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .paw-prints {
+            position: fixed;
+            color: rgba(255, 107, 107, 0.3);
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        .fade-out {
+            animation: fadeOut 1s ease-out forwards;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .cat {
+                font-size: 6rem;
+            }
+            .cat-facts, .game-section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Hello world</h1>
+    <div class="header">
+        <h1>🐱 Welcome to Purrfect Cat Paradise 🐱</h1>
+        <p>A purr-fectly fun website for cat lovers!</p>
+    </div>
+
+    <div class="cat-container">
+        <div class="cat" id="mainCat" onclick="clickCat()">🐱</div>
+    </div>
+
+    <div class="game-section">
+        <h2>🎮 Cat Clicker Game 🎮</h2>
+        <div class="cat-counter">Cats petted: <span id="catCount">0</span></div>
+        <button class="reset-btn" onclick="resetCounter()">Reset Counter</button>
+    </div>
+
+    <div class="cat-facts">
+        <h2>🧠 Random Cat Fact 🧠</h2>
+        <div class="cat-fact" id="catFact">Click the cat above to discover amazing cat facts!</div>
+    </div>
+
+    <div class="footer">
+        <p>Made with 💖 for all the cat lovers out there! Keep clicking for more surprises!</p>
+    </div>
+
+    <script>
+        let catCount = 0;
+        const catFacts = [
+            "Cats have five toes on their front paws but only four on their back paws! 🐾",
+            "A group of cats is called a 'clowder' and a group of kittens is called a 'kindle'! 📚",
+            "Cats can rotate their ears 180 degrees! 👂",
+            "A cat's purr vibrates at a frequency that promotes bone healing! 🎵",
+            "Cats have a third eyelid called a 'nictitating membrane'! 👁️",
+            "Cats can make over 100 vocal sounds, while dogs can only make about 10! 🗣️",
+            "A cat's brain is 90% similar to a human's brain! 🧠",
+            "Cats spend 70% of their lives sleeping - that's 13-16 hours a day! 😴",
+            "A cat's whiskers are roughly as wide as their body! 📏",
+            "Cats have a special reflective layer behind their retinas called 'tapetum lucidum' that helps them see in the dark! ✨"
+        ];
+
+        const catEmojis = ['🐱', '😸', '😺', '😻', '😽', '🙀', '😿', '😾'];
+
+        function clickCat() {
+            catCount++;
+            document.getElementById('catCount').textContent = catCount;
+            
+            // Change cat emoji randomly
+            const mainCat = document.getElementById('mainCat');
+            mainCat.textContent = catEmojis[Math.floor(Math.random() * catEmojis.length)];
+            
+            // Show random cat fact
+            const randomFact = catFacts[Math.floor(Math.random() * catFacts.length)];
+            document.getElementById('catFact').textContent = randomFact;
+            
+            // Create floating cat
+            createFloatingCat();
+            
+            // Add paw print at click location
+            createPawPrint(event);
+            
+            // Add special effects for milestones
+            if (catCount % 10 === 0) {
+                createCatParty();
+            }
+        }
+
+        function createFloatingCat() {
+            const floatingCat = document.createElement('div');
+            floatingCat.textContent = catEmojis[Math.floor(Math.random() * catEmojis.length)];
+            floatingCat.className = 'floating-cats';
+            floatingCat.style.left = Math.random() * window.innerWidth + 'px';
+            floatingCat.style.top = Math.random() * window.innerHeight + 'px';
+            floatingCat.style.fontSize = (Math.random() * 3 + 1) + 'rem';
+            floatingCat.style.animation = 'fadeOut 3s ease-out forwards';
+            
+            document.body.appendChild(floatingCat);
+            
+            setTimeout(() => {
+                floatingCat.remove();
+            }, 3000);
+        }
+
+        function createPawPrint(event) {
+            if (!event) return;
+            
+            const pawPrint = document.createElement('div');
+            pawPrint.textContent = '🐾';
+            pawPrint.className = 'paw-prints fade-out';
+            pawPrint.style.left = (event.clientX - 20) + 'px';
+            pawPrint.style.top = (event.clientY - 20) + 'px';
+            
+            document.body.appendChild(pawPrint);
+            
+            setTimeout(() => {
+                pawPrint.remove();
+            }, 1000);
+        }
+
+        function createCatParty() {
+            // Create multiple floating cats for party effect
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    createFloatingCat();
+                }, i * 100);
+            }
+            
+            // Change background briefly
+            document.body.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #feca57 100%)';
+            setTimeout(() => {
+                document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }, 2000);
+        }
+
+        function resetCounter() {
+            catCount = 0;
+            document.getElementById('catCount').textContent = catCount;
+            document.getElementById('catFact').textContent = "Click the cat above to discover amazing cat facts!";
+            document.getElementById('mainCat').textContent = '🐱';
+        }
+
+        // Add some ambient floating cats on page load
+        window.addEventListener('load', () => {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createFloatingCat();
+                }, i * 1000);
+            }
+        });
+
+        // Add keyboard interaction
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                clickCat();
+            }
+        });
+    </script>
 </body>
 </html>
