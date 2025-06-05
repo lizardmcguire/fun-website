@@ -49,11 +49,16 @@
         }
 
         .cat {
-            font-size: 8rem;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
             animation: bounce 2s infinite;
             user-select: none;
+            object-fit: cover;
+            border: 5px solid #ff6b6b;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
         }
 
         .cat:hover {
@@ -76,6 +81,11 @@
             position: fixed;
             pointer-events: none;
             z-index: 1000;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff6b6b;
         }
 
         .cat-facts {
@@ -168,7 +178,12 @@
                 font-size: 2rem;
             }
             .cat {
-                font-size: 6rem;
+                width: 150px;
+                height: 150px;
+            }
+            .floating-cats {
+                width: 60px;
+                height: 60px;
             }
             .cat-facts, .game-section {
                 margin: 1rem;
@@ -184,7 +199,7 @@
     </div>
 
     <div class="cat-container">
-        <div class="cat" id="mainCat" onclick="clickCat()">🐱</div>
+        <img class="cat" id="mainCat" onclick="clickCat()" src="https://cataas.com/cat/cute?width=200&height=200" alt="Cute Cat" loading="lazy">
     </div>
 
     <div class="game-section">
@@ -217,15 +232,35 @@
             "Cats have a special reflective layer behind their retinas called 'tapetum lucidum' that helps them see in the dark! ✨"
         ];
 
-        const catEmojis = ['🐱', '😸', '😺', '😻', '😽', '🙀', '😿', '😾'];
+        const catImages = [
+            'https://cataas.com/cat/cute?width=200&height=200&r=1',
+            'https://cataas.com/cat/cute?width=200&height=200&r=2',
+            'https://cataas.com/cat/cute?width=200&height=200&r=3',
+            'https://cataas.com/cat/cute?width=200&height=200&r=4',
+            'https://cataas.com/cat/cute?width=200&height=200&r=5',
+            'https://cataas.com/cat/cute?width=200&height=200&r=6',
+            'https://cataas.com/cat/cute?width=200&height=200&r=7',
+            'https://cataas.com/cat/cute?width=200&height=200&r=8'
+        ];
+        
+        const floatingCatImages = [
+            'https://cataas.com/cat/cute?width=80&height=80&r=1',
+            'https://cataas.com/cat/cute?width=80&height=80&r=2',
+            'https://cataas.com/cat/cute?width=80&height=80&r=3',
+            'https://cataas.com/cat/cute?width=80&height=80&r=4',
+            'https://cataas.com/cat/cute?width=80&height=80&r=5',
+            'https://cataas.com/cat/cute?width=80&height=80&r=6',
+            'https://cataas.com/cat/cute?width=80&height=80&r=7',
+            'https://cataas.com/cat/cute?width=80&height=80&r=8'
+        ];
 
         function clickCat() {
             catCount++;
             document.getElementById('catCount').textContent = catCount;
             
-            // Change cat emoji randomly
+            // Change cat image randomly
             const mainCat = document.getElementById('mainCat');
-            mainCat.textContent = catEmojis[Math.floor(Math.random() * catEmojis.length)];
+            mainCat.src = catImages[Math.floor(Math.random() * catImages.length)];
             
             // Show random cat fact
             const randomFact = catFacts[Math.floor(Math.random() * catFacts.length)];
@@ -244,12 +279,12 @@
         }
 
         function createFloatingCat() {
-            const floatingCat = document.createElement('div');
-            floatingCat.textContent = catEmojis[Math.floor(Math.random() * catEmojis.length)];
+            const floatingCat = document.createElement('img');
+            floatingCat.src = floatingCatImages[Math.floor(Math.random() * floatingCatImages.length)];
             floatingCat.className = 'floating-cats';
-            floatingCat.style.left = Math.random() * window.innerWidth + 'px';
-            floatingCat.style.top = Math.random() * window.innerHeight + 'px';
-            floatingCat.style.fontSize = (Math.random() * 3 + 1) + 'rem';
+            floatingCat.alt = 'Floating Cat';
+            floatingCat.style.left = Math.random() * (window.innerWidth - 80) + 'px';
+            floatingCat.style.top = Math.random() * (window.innerHeight - 80) + 'px';
             floatingCat.style.animation = 'fadeOut 3s ease-out forwards';
             
             document.body.appendChild(floatingCat);
@@ -294,7 +329,7 @@
             catCount = 0;
             document.getElementById('catCount').textContent = catCount;
             document.getElementById('catFact').textContent = "Click the cat above to discover amazing cat facts!";
-            document.getElementById('mainCat').textContent = '🐱';
+            document.getElementById('mainCat').src = 'https://cataas.com/cat/cute?width=200&height=200';
         }
 
         // Add some ambient floating cats on page load
