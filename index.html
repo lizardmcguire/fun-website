@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐱 Purrfect Cat Paradise 🐱</title>
+    <title>🐱 Artisan Cat Collective 🐱</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,31 +13,65 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #2c1810 0%, #8b4513 30%, #d2b48c 100%);
             min-height: 100vh;
-            color: #333;
+            color: #2c1810;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(210, 180, 140, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(160, 82, 45, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
 
         .header {
             text-align: center;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 3rem 2rem;
+            background: rgba(245, 245, 220, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-bottom: 3px solid #8b4513;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d2b48c, transparent);
         }
 
         .header h1 {
-            font-size: 3rem;
-            color: #ff6b6b;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: #8b4513;
+            text-shadow: 2px 2px 0px rgba(210, 180, 140, 0.5);
             margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .header p {
-            font-size: 1.2rem;
-            color: #666;
+            font-size: 1.3rem;
+            color: #654321;
+            font-style: italic;
+            font-weight: 400;
         }
 
         .cat-container {
@@ -44,36 +79,42 @@
             justify-content: center;
             align-items: center;
             min-height: 60vh;
-            padding: 2rem;
+            padding: 3rem;
             position: relative;
         }
 
         .cat {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            width: 220px;
+            height: 220px;
+            border-radius: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            animation: bounce 2s infinite;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: gentleFloat 3s ease-in-out infinite;
             user-select: none;
             object-fit: cover;
-            border: 5px solid #ff6b6b;
-            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+            border: 4px solid #d2b48c;
+            box-shadow: 
+                0 15px 35px rgba(44, 24, 16, 0.3),
+                0 5px 15px rgba(139, 69, 19, 0.2),
+                inset 0 0 0 1px rgba(245, 245, 220, 0.1);
+            filter: sepia(10%) contrast(1.1) brightness(1.05);
         }
 
         .cat:hover {
-            transform: scale(1.2) rotate(10deg);
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 
+                0 20px 40px rgba(44, 24, 16, 0.4),
+                0 8px 20px rgba(139, 69, 19, 0.3),
+                inset 0 0 0 1px rgba(245, 245, 220, 0.2);
+            filter: sepia(15%) contrast(1.15) brightness(1.1);
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
+        @keyframes gentleFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
             }
-            40% {
-                transform: translateY(-20px);
-            }
-            60% {
-                transform: translateY(-10px);
+            50% {
+                transform: translateY(-10px) rotate(1deg);
             }
         }
 
@@ -83,69 +124,124 @@
             z-index: 1000;
             width: 80px;
             height: 80px;
-            border-radius: 50%;
+            border-radius: 10px;
             object-fit: cover;
-            border: 2px solid #ff6b6b;
+            border: 2px solid #d2b48c;
+            filter: sepia(15%) contrast(1.1) brightness(1.05);
         }
 
         .cat-facts {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(245, 245, 220, 0.95);
             margin: 2rem;
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 
+                0 15px 35px rgba(44, 24, 16, 0.2),
+                0 5px 15px rgba(139, 69, 19, 0.1);
             text-align: center;
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .cat-facts h2 {
+            font-family: 'Playfair Display', serif;
+            color: #8b4513;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            font-weight: 700;
         }
 
         .cat-fact {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #654321;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .new-fact-btn {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: #f5f5dc;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 15px rgba(139, 69, 19, 0.3),
+                inset 0 1px 0 rgba(245, 245, 220, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .new-fact-btn:hover {
+            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 20px rgba(139, 69, 19, 0.4),
+                inset 0 1px 0 rgba(245, 245, 220, 0.3);
         }
 
         .game-section {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(245, 245, 220, 0.9);
             margin: 2rem;
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 2.5rem;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                0 15px 35px rgba(44, 24, 16, 0.2),
+                0 5px 15px rgba(139, 69, 19, 0.1);
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .game-section h2 {
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            color: #8b4513;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            font-weight: 700;
         }
 
         .cat-counter {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            color: #333;
+            font-size: 1.6rem;
+            margin: 1.5rem 0;
+            color: #654321;
+            font-weight: 600;
         }
 
         .reset-btn {
-            background: #ff6b6b;
-            color: white;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: #f5f5dc;
             border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
+            padding: 12px 28px;
+            border-radius: 8px;
             font-size: 1rem;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: 
+                0 4px 15px rgba(139, 69, 19, 0.3),
+                inset 0 1px 0 rgba(245, 245, 220, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .reset-btn:hover {
-            background: #ff5252;
+            background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            box-shadow: 
+                0 6px 20px rgba(139, 69, 19, 0.4),
+                inset 0 1px 0 rgba(245, 245, 220, 0.3);
         }
 
         .paw-prints {
             position: fixed;
-            color: rgba(255, 107, 107, 0.3);
+            color: rgba(139, 69, 19, 0.4);
             font-size: 2rem;
             pointer-events: none;
             z-index: 100;
@@ -168,9 +264,12 @@
 
         .footer {
             text-align: center;
-            padding: 2rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
+            padding: 3rem 2rem;
+            color: rgba(245, 245, 220, 0.9);
+            font-size: 1.1rem;
+            font-style: italic;
+            background: rgba(44, 24, 16, 0.3);
+            border-top: 1px solid rgba(139, 69, 19, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -194,8 +293,8 @@
 </head>
 <body>
     <div class="header">
-        <h1>🐱 Welcome to Purrfect Cat Paradise 🐱</h1>
-        <p>A purr-fectly fun website for cat lovers!</p>
+        <h1>🐱 Artisan Cat Collective 🐱</h1>
+        <p>Curated feline experiences for the discerning cat enthusiast</p>
     </div>
 
     <div class="cat-container">
@@ -203,18 +302,19 @@
     </div>
 
     <div class="game-section">
-        <h2>🎮 Cat Clicker Game 🎮</h2>
-        <div class="cat-counter">Cats petted: <span id="catCount">0</span></div>
-        <button class="reset-btn" onclick="resetCounter()">Reset Counter</button>
+        <h2>🎨 Interactive Cat Gallery 🎨</h2>
+        <div class="cat-counter">Feline encounters: <span id="catCount">0</span></div>
+        <button class="reset-btn" onclick="resetCounter()">Reset Gallery</button>
     </div>
 
     <div class="cat-facts">
-        <h2>🧠 Random Cat Fact 🧠</h2>
-        <div class="cat-fact" id="catFact">Click the cat above to discover amazing cat facts!</div>
+        <h2>📚 Curated Cat Wisdom 📚</h2>
+        <div class="cat-fact" id="catFact">Discover the fascinating world of feline behavior and history</div>
+        <button class="new-fact-btn" onclick="getNewCatFact()">New Wisdom</button>
     </div>
 
     <div class="footer">
-        <p>Made with 💖 for all the cat lovers out there! Keep clicking for more surprises!</p>
+        <p>Thoughtfully crafted for the sophisticated feline connoisseur. An artisanal web experience.</p>
     </div>
 
     <script>
@@ -319,16 +419,21 @@
             }
             
             // Change background briefly
-            document.body.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #feca57 100%)';
+            document.body.style.background = 'linear-gradient(135deg, #d2b48c 0%, #f5deb3 50%, #daa520 100%)';
             setTimeout(() => {
-                document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                document.body.style.background = 'linear-gradient(135deg, #2c1810 0%, #8b4513 30%, #d2b48c 100%)';
             }, 2000);
+        }
+
+        function getNewCatFact() {
+            const randomFact = catFacts[Math.floor(Math.random() * catFacts.length)];
+            document.getElementById('catFact').textContent = randomFact;
         }
 
         function resetCounter() {
             catCount = 0;
             document.getElementById('catCount').textContent = catCount;
-            document.getElementById('catFact').textContent = "Click the cat above to discover amazing cat facts!";
+            document.getElementById('catFact').textContent = "Discover the fascinating world of feline behavior and history";
             document.getElementById('mainCat').src = 'https://cataas.com/cat/cute?width=200&height=200';
         }
 
